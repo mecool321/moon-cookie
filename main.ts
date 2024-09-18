@@ -1,34 +1,19 @@
 namespace SpriteKind {
     export const Upgrade1 = SpriteKind.create()
 }
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Cookie.isHittingTile(CollisionDirection.Bottom)) {
-        Cookie.vy += -125
+        Doublejumps = 0
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Upgrade1Aquired == 1) {
-        if (characterAnimations.matchesRule(Cookie, characterAnimations.rule(Predicate.MovingLeft))) {
-            Cookieprojectile = sprites.createProjectileFromSprite(img`
-                . e e e e e 
-                e 4 4 4 4 e 
-                e 4 4 4 4 e 
-                . e e e e e 
-                `, Cookie, -1 * 200, 0)
-            Cookieprojectile.setFlag(SpriteFlag.DestroyOnWall, true)
-        } else if (characterAnimations.matchesRule(Cookie, characterAnimations.rule(Predicate.MovingRight))) {
-            Cookieprojectile = sprites.createProjectileFromSprite(img`
-                e e e e e . 
-                e 4 4 4 4 e 
-                e 4 4 4 4 e 
-                e e e e e . 
-                `, Cookie, 1 * 200, 0)
-            Cookieprojectile.setFlag(SpriteFlag.DestroyOnWall, true)
-        }
+    if (Doublejumps < MaxJumps) {
+        Cookie.vy += -125
+        Doublejumps += 1
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Upgrade1, function (sprite, otherSprite) {
-    Upgrade1Aquired = 1
+    MaxJumps += 1
     sprites.destroy(otherSprite)
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
@@ -297,8 +282,8 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
     sprites.destroy(sprite)
 })
 let ENEMYISATTACKING = 0
-let Cookieprojectile: Sprite = null
-let Upgrade1Aquired = 0
+let Doublejumps = 0
+let MaxJumps = 0
 let Shark: Sprite = null
 let Cookie: Sprite = null
 Cookie = sprites.create(img`
@@ -446,20 +431,20 @@ scene.setBackgroundImage(img`
 tiles.setCurrentTilemap(tilemap`level2`)
 let upgrade = sprites.create(img`
     . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    e e e e e e e e e e e e e e . . 
-    e 4 4 4 4 4 4 4 4 4 4 1 1 1 e . 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 1 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 4 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 4 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 4 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 4 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 4 e 
-    e 4 4 4 4 4 4 4 4 4 4 4 4 4 e . 
-    e e e e e e e e e e e e e e . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . e e e e e e . . . . . 
+    . . . . e 4 4 4 4 4 4 e . . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 e e e e 4 4 e . . . 
+    . . . e 4 e e e e e e 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . e 4 4 4 e e 4 4 4 e . . . 
+    . . . . e 4 4 4 4 4 4 e . . . . 
+    . . . . . e e e e e e . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Upgrade1)
 tiles.placeOnRandomTile(upgrade, assets.tile`myTile0`)
@@ -483,6 +468,7 @@ Shark = sprites.create(img`
     `, SpriteKind.Enemy)
 tiles.placeOnRandomTile(Shark, assets.tile`myTile`)
 Shark.follow(Cookie, 50)
+MaxJumps = 1
 forever(function () {
     if (ENEMYISATTACKING == 0) {
         characterAnimations.loopFrames(
