@@ -303,7 +303,7 @@ Cookie = sprites.create(img`
     . . . 1 1 . . . . . 1 1 . . . 
     . . . . . 1 1 1 1 1 . . . . . 
     `, SpriteKind.Player)
-Cookie.ay = 140
+Cookie.ay = 170
 controller.moveSprite(Cookie, 100, 0)
 scene.cameraFollowSprite(Cookie)
 scene.setBackgroundImage(img`
