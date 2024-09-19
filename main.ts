@@ -3,7 +3,7 @@ namespace SpriteKind {
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Cookie.isHittingTile(CollisionDirection.Bottom)) {
-        Doublejumps = 0
+        Doublejumps = location
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
