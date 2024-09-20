@@ -28,6 +28,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSp
             ENEMYISATTACKING = 0
         } else {
             ENEMYISATTACKING = 0
+            EnemyAttackAnimation = 0
         }
     })
 })
@@ -219,6 +220,7 @@ function StartGame () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.EnemyPoint)
+        tiles.placeOnRandomTile(EnemyPoint, assets.tile`myTile`)
     })
     timer.background(function () {
         Shark = sprites.create(img`
@@ -662,14 +664,10 @@ forever(function () {
             250,
             characterAnimations.rule(Predicate.MovingRight)
             )
-            EnemyAttackAnimation = 0
         }
     } else {
         Shark.follow(EnemyPoint, 25)
     }
-})
-forever(function () {
-    tiles.placeOnRandomTile(EnemyPoint, assets.tile`myTile`)
 })
 forever(function () {
     characterAnimations.loopFrames(
