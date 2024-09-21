@@ -13,11 +13,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         Doublejumps += 1
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, location) {
-    tiles.setCurrentTilemap(tilemap`level4`)
-    tiles.placeOnRandomTile(Shark, assets.tile`myTile`)
-    tiles.placeOnRandomTile(EnemyPoint, assets.tile`myTile`)
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Upgrade1, function (sprite, otherSprite) {
     MaxJumps += 1
     sprites.destroy(otherSprite)
@@ -36,6 +31,11 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSp
             EnemyAttackAnimation = 0
         }
     })
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level4`)
+    tiles.placeOnRandomTile(Shark, assets.tile`myTile`)
+    tiles.placeOnRandomTile(EnemyPoint, assets.tile`myTile`)
 })
 function StartGame () {
     timer.background(function () {
@@ -257,10 +257,10 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
     sprites.destroy(sprite)
 })
 let upgrade: Sprite = null
-let EnemyAttackAnimation = 0
-let ENEMYISATTACKING = 0
 let EnemyPoint: Sprite = null
 let Shark: Sprite = null
+let EnemyAttackAnimation = 0
+let ENEMYISATTACKING = 0
 let MaxJumps = 0
 let Doublejumps = 0
 let Cookie: Sprite = null
