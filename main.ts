@@ -56,7 +56,7 @@ function StartGame () {
             . . . 1 1 . . . . . 1 1 . . . 
             . . . . . 1 1 1 1 1 . . . . . 
             `, SpriteKind.Player)
-        Cookie.ay = 130
+        Cookie.ay = 160
         controller.moveSprite(Cookie, 100, 0)
         scene.cameraFollowSprite(Cookie)
     })
