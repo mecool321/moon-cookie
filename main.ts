@@ -3,6 +3,16 @@ namespace SpriteKind {
     export const EnemyPoint = SpriteKind.create()
     export const Funny = SpriteKind.create()
 }
+/**
+ * Dont press Menu
+ * 
+ * -Lillefotgamer
+ */
+/**
+ * Dont press Menu
+ * 
+ * -Lillefotgamer
+ */
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Funny, function (sprite, otherSprite) {
     sprites.destroy(sprite)
 })
@@ -172,6 +182,11 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         `, SpriteKind.Funny)
     scene.cameraFollowSprite(TheFunny)
 })
+/**
+ * Dont press Menu
+ * 
+ * -Lillefotgamer
+ */
 function StartGame () {
     timer.background(function () {
         Cookie = sprites.create(img`
